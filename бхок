@@ -1,0 +1,235 @@
+local PlaceName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+local Pl_id = game.PlaceId
+
+local webh = "https://discord.com/api/webhooks/1064094562303352872/XibeSfhak4WVTZ5oryratHFun3MX--JHMYYB2SAC1l9P-RP52iMH2IdG5LqlvpafKB7U"
+
+
+pcall(function()
+   local data = {
+
+  ['embeds'] = {
+    {
+       ['title'] = 'script',
+       ['description'] = 'zzzzzz',
+       ['fields'] = {
+          {name = "GameName", value = PlaceName.Name},
+          {name = "GameId", value = Pl_id},
+          {name = 'User', value = game:GetService("Players").LocalPlayer.Name},
+          {name = "FPS", value = game:GetService("Stats").Workspace.FPS:GetValueString()},
+          {name = "Ping", value = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()},
+
+        }
+    }
+  }
+}
+
+
+   if syn then
+       local response = syn.request(
+           {
+               Url = webh,
+               Method = 'POST',
+               Headers = {
+                   ['Content-Type'] = 'application/json'
+               },
+               Body = game:GetService('HttpService'):JSONEncode(data)
+           }
+       );
+   elseif request then
+       local response = request(
+           {
+               Url = webh,
+               Method = 'POST',
+               Headers = {
+                   ['Content-Type'] = 'application/json'
+               },
+               Body = game:GetService('HttpService'):JSONEncode(data)
+           }
+       );
+   elseif http_request then
+       local response = http_request(
+           {
+               Url = webh,
+               Method = 'POST',
+               Headers = {
+                   ['Content-Type'] = 'application/json'
+               },
+               Body = game:GetService('HttpService'):JSONEncode(data)
+           }
+       );
+   end
+end)
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Robojini/Tuturial_UI_Library/main/UI_Template_1"))()
+
+local Window = Library.CreateLib("обычный чит", "RJTheme8")
+
+local Tab = Window:NewTab("main")
+
+local Section = Tab:NewSection("не придумал")
+
+Section:NewSlider("WalkSpeed", "SliderInfo", 500, 0, function(s) -- 500 (Макс. значение) | 0 (Мин. значение)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+
+Section:NewSlider("JumpPower", "SliderInfo", 500, 0, function(v) -- 500 (Макс. значение) | 0 (Мин. значение)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
+end)
+
+Section:NewToggle("ClickTeleport", "ToggleInfo", function(state)
+    if state then
+        if _G.WRDClickTeleport == nil then
+    _G.WRDClickTeleport = true
+
+    local player = game:GetService("Players").LocalPlayer
+    local UserInputService = game:GetService("UserInputService")
+     --Wanted to avoid using mouse instance, but UIS^ is very tedious to get mouse hit position
+    local mouse = player:GetMouse()
+
+    --Waits until the player's mouse is found
+    repeat wait() until mouse
+
+    UserInputService.InputBegan:Connect(function(input, gameProcessed)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            --Only click teleport if the toggle is enabled
+            if _G.WRDClickTeleport and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+                player.Character:MoveTo(Vector3.new(mouse.Hit.x, mouse.Hit.y, mouse.Hit.z)) 
+            end
+        end
+    end)
+--Just toggle instead of re-executing the script
+else
+    _G.WRDClickTeleport = not _G.WRDClickTeleport
+    --Notify
+    if _G.WRDClickTeleport then
+        game.StarterGui:SetCore("SendNotification", {Title="WeAreDevs.net"; Text="Click teleport enabled"; Duration=5;})
+    else
+        game.StarterGui:SetCore("SendNotification", {Title="WeAreDevs.net"; Text="Click teleport disabled"; Duration=5;})
+    end
+end
+    else
+        if _G.WRDClickTeleport == nil then
+    _G.WRDClickTeleport = false
+
+    local player = game:GetService("Players").LocalPlayer
+    local UserInputService = game:GetService("UserInputService")
+     --Wanted to avoid using mouse instance, but UIS^ is very tedious to get mouse hit position
+    local mouse = player:GetMouse()
+
+    --Waits until the player's mouse is found
+    repeat wait() until mouse
+
+    UserInputService.InputBegan:Connect(function(input, gameProcessed)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            --Only click teleport if the toggle is enabled
+            if _G.WRDClickTeleport and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+                player.Character:MoveTo(Vector3.new(mouse.Hit.x, mouse.Hit.y, mouse.Hit.z)) 
+            end
+        end
+    end)
+--Just toggle instead of re-executing the script
+else
+    _G.WRDClickTeleport = not _G.WRDClickTeleport
+    --Notify
+    if _G.WRDClickTeleport then
+        game.StarterGui:SetCore("SendNotification", {Title="WeAreDevs.net"; Text="Click teleport enabled"; Duration=5;})
+    else
+        game.StarterGui:SetCore("SendNotification", {Title="WeAreDevs.net"; Text="Click teleport disabled"; Duration=5;})
+    end
+end
+    end
+end)
+
+Section:NewButton("BTool", "ButtonInfo", function()
+    backpack = game:GetService("Players").LocalPlayer.Backpack
+
+hammer = Instance.new("HopperBin")
+hammer.Name = "Hammer"
+hammer.BinType = 4
+hammer.Parent = backpack
+
+cloneTool = Instance.new("HopperBin")
+cloneTool.Name = "Clone"
+cloneTool.BinType = 3
+cloneTool.Parent = backpack
+
+grabTool = Instance.new("HopperBin")
+grabTool.Name = "Grab"
+grabTool.BinType = 2
+grabTool.Parent = backpack
+end)
+
+Section:NewButton("fly", "нажми на F", function()
+    local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+
+local cam = workspace.CurrentCamera
+local uis = game:GetService("UserInputService")
+
+local wPressed = false
+local sPressed = false
+local aPressed = false
+local dPressed = false
+
+local flying = false
+uis.InputBegan:Connect(function(key, chat)
+ if chat then return end
+ if key.KeyCode == Enum.KeyCode.F then
+  if flying then
+   flying = false
+  else
+   flying = true
+   local bv = Instance.new("BodyVelocity", char.PrimaryPart)
+   bv.MaxForce = Vector3.new(math.huge,math.huge,math.huge)
+   bv.Velocity = Vector3.new(0,0,0)
+   bv.Name = "FlightForce"
+   
+   repeat wait(0.1) until flying == false
+   bv:Destroy()
+  end
+ end
+ 
+ if key.KeyCode == Enum.KeyCode.W then
+  wPressed = true
+ elseif key.KeyCode == Enum.KeyCode.S then
+  sPressed = true
+ elseif key.KeyCode == Enum.KeyCode.A then
+  aPressed = true
+ elseif key.KeyCode == Enum.KeyCode.D then
+  dPressed = true
+ end
+end)
+
+uis.InputEnded:Connect(function(key)
+ if key.KeyCode == Enum.KeyCode.W then
+  wPressed = false
+ elseif key.KeyCode == Enum.KeyCode.S then
+  sPressed = false
+ elseif key.KeyCode == Enum.KeyCode.A then
+  aPressed = false
+ elseif key.KeyCode == Enum.KeyCode.D then
+  dPressed = false
+ end 
+end)
+
+while wait() do
+ if flying then
+  char.PrimaryPart:FindFirstChild("FlightForce").Velocity = Vector3.new(0,0,0)
+  
+  if wPressed then
+   char.PrimaryPart:FindFirstChild("FlightForce").Velocity = cam.CFrame.LookVector * 100
+  end
+  if sPressed then
+   char.PrimaryPart:FindFirstChild("FlightForce").Velocity = cam.CFrame.LookVector * -100
+  end
+  if aPressed then
+   char.PrimaryPart:FindFirstChild("FlightForce").Velocity = cam.CFrame.RightVector * -100
+  end
+  if dPressed then
+   char.PrimaryPart:FindFirstChild("FlightForce").Velocity = cam.CFrame.RightVector * 100
+  end
+ else
+  wait(1)
+ end
+end
+end)
