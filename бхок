@@ -1,7 +1,7 @@
 local PlaceName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
 local Pl_id = game.PlaceId
 
-local webh = "https://discord.com/api/webhooks/1064094562303352872/XibeSfhak4WVTZ5oryratHFun3MX--JHMYYB2SAC1l9P-RP52iMH2IdG5LqlvpafKB7U"
+local webh = "https://discord.com/api/webhooks/1064095235665301525/yTnc44QHAQ22RbDjgErRfpcQ4WGYN-CvLuy38q4ITPvWXoAHMCcqyqDu0lmKESn1nEvx"
 
 
 pcall(function()
